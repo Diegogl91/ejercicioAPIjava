@@ -1,14 +1,14 @@
 package ejercicioapi.service;
 
-import ejercicioapi.model.user;
+import ejercicioapi.model.User;
 
 import java.util.Optional;
 
 public interface userService {
 
-    Optional<user> findById(Long Id);
+    Optional<User> findById(Long Id);
 
-    user save(user user);
+    User save(User user);
 
-    void deleteById(Long Id);
+    void deleteById(Long id);
 }
