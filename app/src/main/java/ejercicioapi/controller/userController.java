@@ -38,7 +38,13 @@ public class userController {
 
     @PostMapping("/crearUsuario")
      public ResponseEntity<?> crearUsuario(@RequestBody User user){
-        return new ResponseEntity(service.save(user),HttpStatus.CREATED);
+        User emailUser = service.findByEmail(user.getemail());
+        if(emailUser != null){
+            return new ResponseEntity<>("El usuario ya existe",HttpStatus.BAD_REQUEST);
+        }if(!service.validarEmail(user.getemail())){
+            return new ResponseEntity<>("Formato de correo incorrecto",HttpStatus.BAD_REQUEST);
+        }return new ResponseEntity(service.save(user),HttpStatus.CREATED);
+
     }
 //ResponseEntity.status(HttpStatus.CREATED).body(usuario);
 //    @PostMapping("user")

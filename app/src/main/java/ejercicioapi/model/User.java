@@ -39,11 +39,11 @@ public class User {
 //    @NotEmpty
 //    private String token;
 
-    @JsonIgnoreProperties(value = {"user"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"user","id"}, allowSetters = true)
     @Column(nullable = false)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Phone> phones = new ArrayList<>();
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createAt;
 
     public String getname() {
@@ -96,6 +96,7 @@ public class User {
     }
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+
     }
 
     public Date getCreateAt() {
