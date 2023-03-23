@@ -12,7 +12,8 @@ public interface userService {
 
     User save(User user);
 
-    void deleteById(Long id);
+    boolean deleteById(Long id);
 
-    boolean validarEmail(String email);
+    boolean validateEmail(String email);
+    public User modifyUser(Long id, User user);
 }

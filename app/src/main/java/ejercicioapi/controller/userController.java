@@ -28,7 +28,7 @@ public class userController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> consultarUsuario(@PathVariable("id") Long id){
+    public ResponseEntity<?> getUser(@PathVariable("id") Long id){
         Optional<User> user = service.findById(id);
         if(user.isEmpty()){
             ResponseEntity.notFound().build();
@@ -37,16 +37,28 @@ public class userController {
     }
 
     @PostMapping("/crearUsuario")
-     public ResponseEntity<?> crearUsuario(@RequestBody User user){
+     public ResponseEntity<?> createUser(@RequestBody User user){
         User emailUser = service.findByEmail(user.getemail());
         if(emailUser != null){
             return new ResponseEntity<>("El usuario ya existe",HttpStatus.BAD_REQUEST);
-        }if(!service.validarEmail(user.getemail())){
+        }if(!service.validateEmail(user.getemail())){
             return new ResponseEntity<>("Formato de correo incorrecto",HttpStatus.BAD_REQUEST);
         }return new ResponseEntity(service.save(user),HttpStatus.CREATED);
-
     }
-//ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> modifyUser(@PathVariable("id") Long id,@RequestBody User user){
+        return new ResponseEntity<>(service.modifyUser(id,user),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eraseUser(@PathVariable("id") Long id){
+        boolean response = service.deleteById(id);
+        if(response){
+            return  new ResponseEntity<>(HttpStatus.OK);
+        }return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 //    @PostMapping("user")
 //    public user login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
 //

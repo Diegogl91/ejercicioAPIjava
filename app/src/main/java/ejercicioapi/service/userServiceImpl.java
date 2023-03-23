@@ -35,14 +35,28 @@ public class userServiceImpl implements userService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public boolean deleteById(Long id) {
+        try{
+            repository.deleteById(id);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     @Override
-    public boolean validarEmail(String email){
+    public boolean validateEmail(String email){
         if (EMAIL_REGEX.matcher(email).matches()) {
             return true;
         }return false;
+    }
+
+    @Override
+    public User modifyUser(Long id, User user){
+        User userFind = repository.findById(id).get();
+        userFind.setemail(user.getemail());
+        userFind.setname(user.getname());
+        userFind.setPhones(user.getPhones());
+        return repository.save(userFind);
     }
 }
