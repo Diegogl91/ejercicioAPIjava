@@ -12,11 +12,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Phone {
-    //    @GeneratedValue(generator = "Long")
-//    @GenericGenerator(
-//            name = "Long",
-//            strategy = "org.hibernate.id.LongGenerator"
-//    )
+
     @Id
     @GeneratedValue
     private Long id;

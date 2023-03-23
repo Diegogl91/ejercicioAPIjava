@@ -4,13 +4,10 @@ import ejercicioapi.model.User;
 import ejercicioapi.service.userService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.ServerRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -18,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-//@RequestMapping("/usuarios")
+
 public class userController {
 
     @Autowired
@@ -63,38 +60,6 @@ public class userController {
             return  new ResponseEntity<>(HttpStatus.OK);
         }return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-//    @PostMapping("user")
-//    public user login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
-//
-//        String token = getJWTToken(username);
-//        user user = new user();
-//        user.setname(username);
-//        user.setToken(token);
-//        return user;
-//
-//    }
-//
-//    private String getJWTToken(String username) {
-//        String secretKey = "mySecretKey";
-//        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-//                .commaSeparatedStringToAuthorityList("ROLE_USER");
-//
-//        String token = Jwts
-//                .builder()
-//                .setId("softtekJWT")
-//                .setSubject(username)
-//                .claim("authorities",
-//                        grantedAuthorities.stream()
-//                                .map(GrantedAuthority::getAuthority)
-//                                .collect(Collectors.toList()))
-//                .setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + 600000))
-//                .signWith(SignatureAlgorithm.HS512,
-//                        secretKey.getBytes()).compact();
-//
-//        return "Bearer " + token;
-//    }
 
 
 }

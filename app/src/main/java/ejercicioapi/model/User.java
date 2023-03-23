@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import java.util.*;
 
 
@@ -18,10 +17,6 @@ public class User {
 
     @Id
     @GeneratedValue
-//    @GenericGenerator(
-//            name = "Long",
-//            strategy = "org.hibernate.id.LongGenerator"
-//    )
     private Long id;
     @Column(nullable = false)
     private String name;
