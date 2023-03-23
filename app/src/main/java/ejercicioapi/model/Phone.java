@@ -6,19 +6,19 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
+import javax.validation.constraints.Size;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Phone {
-    //    @GeneratedValue(generator = "UUID")
+    //    @GeneratedValue(generator = "Long")
 //    @GenericGenerator(
-//            name = "UUID",
-//            strategy = "org.hibernate.id.UUIDGenerator"
+//            name = "Long",
+//            strategy = "org.hibernate.id.LongGenerator"
 //    )
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     private String number;
     private String citycode;

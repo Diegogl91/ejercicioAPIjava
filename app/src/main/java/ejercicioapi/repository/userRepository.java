@@ -2,8 +2,8 @@ package ejercicioapi.repository;
 
 import ejercicioapi.model.User;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-import java.util.UUID;
+
+import java.util.Optional;
 
 
 public interface userRepository extends CrudRepository<User, Long> {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -17,6 +18,8 @@ public class userServiceImpl implements userService {
                     "[a-zA-Z0-9_+&*-]+)*@" +
                     "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                     "A-Z]{2,7}$");
+
+    public static final Pattern PASSWORD_REGEX = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d.*\\d).*$");
     @Autowired
     private userRepository repository;
     @Override
@@ -31,6 +34,10 @@ public class userServiceImpl implements userService {
 
     @Override
     public User save(User user) {
+        user.setActive(true);
+        user.setCreateAt(new Date());
+        user.setUpdateAt(new Date());
+        user.setlastLogin(new Date());
         return repository.save(user);
     }
 
@@ -46,9 +53,12 @@ public class userServiceImpl implements userService {
 
     @Override
     public boolean validateEmail(String email){
-        if (EMAIL_REGEX.matcher(email).matches()) {
-            return true;
-        }return false;
+        return EMAIL_REGEX.matcher(email).matches();
+    }
+
+    @Override
+    public boolean validatePassword(String pwd){
+        return PASSWORD_REGEX.matcher(pwd).matches();
     }
 
     @Override
@@ -57,6 +67,7 @@ public class userServiceImpl implements userService {
         userFind.setemail(user.getemail());
         userFind.setname(user.getname());
         userFind.setPhones(user.getPhones());
+        userFind.setUpdateAt(new Date());
         return repository.save(userFind);
     }
 }

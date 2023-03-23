@@ -3,15 +3,11 @@ package ejercicioapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 @Entity
@@ -21,10 +17,10 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
 //    @GenericGenerator(
-//            name = "UUID",
-//            strategy = "org.hibernate.id.UUIDGenerator"
+//            name = "Long",
+//            strategy = "org.hibernate.id.LongGenerator"
 //    )
     private Long id;
     @Column(nullable = false)
@@ -35,9 +31,8 @@ public class User {
     @Email
     private String email;
 
-//    @Column(nullable = false)
-//    @NotEmpty
-//    private String token;
+    @Column(nullable = false)
+    private UUID token = UUID.randomUUID();
 
     @JsonIgnoreProperties(value = {"user","id"}, allowSetters = true)
     @Column(nullable = false)
@@ -45,6 +40,14 @@ public class User {
     private List<Phone> phones = new ArrayList<>();
     @Temporal(TemporalType.DATE)
     private Date createAt;
+
+    @Temporal(TemporalType.DATE)
+    private Date updateAt;
+
+    @Temporal(TemporalType.DATE)
+    private Date lastLogin;
+
+    private Boolean isActive;
 
     public String getname() {
         return name;
@@ -96,7 +99,6 @@ public class User {
     }
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
-
     }
 
     public Date getCreateAt() {
@@ -107,13 +109,37 @@ public class User {
         this.createAt = new Date();
     }
 
-//    public String getToken() {
-//        return token;
-//    }
-//
-//    public void setToken(String token) {
-//        this.token = token;
-//    }
+    public Date getUpdateAt() {
+        return updateAt;
+    }
 
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
 
+    public Date getlastLogin() {
+        return lastLogin;
+    }
+
+    public void setlastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public UUID getToken() {
+        return token;
+    }
+
+    public void setToken(UUID token) {
+        this.token = token;
+        Map<UUID,User> userMap = new HashMap<>();
+        userMap.put(token,this);
+    }
 }

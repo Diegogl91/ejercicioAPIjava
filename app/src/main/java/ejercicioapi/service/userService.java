@@ -15,5 +15,8 @@ public interface userService {
     boolean deleteById(Long id);
 
     boolean validateEmail(String email);
+
+    boolean validatePassword(String pwd);
+
     public User modifyUser(Long id, User user);
 }
